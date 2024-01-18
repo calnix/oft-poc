@@ -1,0 +1,37 @@
+{
+  "transactions": [
+    {
+      "hash": "0xe454b148c1d757d129a86595949bd870e1afe9d63123953fff9202291e3ddcc3",
+      "transactionType": "CALL",
+      "contractName": "TestToken",
+      "contractAddress": "0x0959c593bB41A340Dcd9CA6c090c2F919000B28d",
+      "function": "setTrustedRemote(uint16,bytes)",
+      "arguments": [
+        "10121",
+        "0x0adafb8574b3a59cf3176e1bd278c951c445d94d0959c593bb41a340dcd9ca6c090c2f919000b28d"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x2bf003ec9b7e2a5a8663d6b0475370738fa39825",
+        "to": "0x0959c593bb41a340dcd9ca6c090c2f919000b28d",
+        "gas": "0x1fcad",
+        "value": "0x0",
+        "data": "0xeb8d72b70000000000000000000000000000000000000000000000000000000000002789000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000280adafb8574b3a59cf3176e1bd278c951c445d94d0959c593bb41a340dcd9ca6c090c2f919000b28d000000000000000000000000000000000000000000000000",
+        "nonce": "0x14",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0xe454b148c1d757d129a86595949bd870e1afe9d63123953fff9202291e3ddcc3"
+  ],
+  "returns": {},
+  "timestamp": 1705543256,
+  "chain": 11155111,
+  "multi": false,
+  "commit": "735668bb"
+}

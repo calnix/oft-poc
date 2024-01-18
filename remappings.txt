@@ -1,3 +1,2 @@
-@yield-protocol/yieldspace-tv/=lib/yieldspace-tv/
 @layerzerolabs/=node_modules/@layerzerolabs
 @openzeppelin/=node_modules/@openzeppelin

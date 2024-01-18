@@ -12,13 +12,59 @@ contract SLVRToken is OFT {
         _mint(_msgSender(), 100 * 10 * decimals()); // mints 100 tokens to the deployer
     }
 
-    //send function in OFTCore.sol
+    //calling send function in OFTCore.sol
+    function send() external override {
+
+        /**
+        send(
+            SendParam calldata _sendParam,
+            bytes calldata _extraOptions,
+            MessagingFee calldata _fee,
+            address _refundAddress,
+            bytes calldata _composeMsg,
+        )
+         */
+        
+        // PREP SENDING PARAMS
+        //(amountDebitedLD, amountToCreditLD) = _debitView(_amountToSendLD, _minAmountToReceiveLD, _dstEid);
+
+        SendParam memory _sendParam;
+        //bytes32 to: destination receiving address | goerli 
+        //uint256 amountLD: amount of tokens to send in local decimals
+        //uint256 minAmountLD: the minimum amount to send for slippage handling
+        //uint32 dstEid: destination endpoint id
+        _sendParam = SendParam({to: bytes32(0x464570adA09869d8741132183721B4f0769a0287), amountLD: 1e18, minAmountLD: 1e18, dstEid: 40121});
+
+        bytes memory _extraOptions = bytes(0x); //optional
+        bool _payInLzToken = false;
+        address _refundAddress = msg.sender;    //back to fn caller: EOA in this case.
+        bytes memory _composeMsg = bytes(0x);   //optional
+
+        MessagingFee memory _fee = quoteSend(_sendParam, _extraOptions, _payInLzToken, _composeMsg);
+        // nativeFee: gas amount in native gas token
+        // lzTokenFee: gas amount in ZRO token
+        _fee = ({nativeFee: uint256(0), lzTokenFee: uint256(0)});
+
+        // call send()
+        super.send(_sendParam, _extraOptions, _fee, _refundAddress, _composeMsg);
+    } 
 
 }
 
 
 
+/**
+https://docs.layerzero.network/contracts/endpoint-addresses#goerli-testnet
 
+Mumbai (Polygon Testnet)
+- endpointId: 40109
+- endpoint: 0x464570adA09869d8741132183721B4f0769a0287
+
+Goerli (Testnet)
+- endpointId: 40121
+- endpoint: 0x464570adA09869d8741132183721B4f0769a0287
+
+*/
 
 
 
@@ -39,7 +85,7 @@ On shared decimals
  By default, an OFT has 6 sharedDecimals, which is optimal for most ERC20 use cases that use 18 decimals.
 
 
-Sending Logic
+# Sending Logic
  
  send function on OFTCore.sol
  when send() is called, _debit() is invovked, triggering the ERC20 token on the source chain to be burned
@@ -60,9 +106,21 @@ Sending Logic
   someone else could have deposited earlier, while another person inits the LZ txn and burning.
 
  Both _debitSender() and _debitThis() use _debitView() to handle how many tokens should be debited on the source chain, versus credited on the destination.
+
   _debitSender(): '(amountDebitedLD, amountToCreditLD) = _debitView(_amountToSendLD, _minAmountToReceiveLD, _dstEid);'
   _debitThis(): '(amountDebitedLD, amountToCreditLD) = _debitView(balanceOf(address(this)), _minAmountToReceiveLD, _dstEid);'
+ 
+  _debitView() can be overriden, allowing your OFT to implement custom fees by changing the amountToDebitLD and amountToCreditLD amounts:
 
-  
+ **Note: I expect we will be using _debitSender() for obvious reasons. 
+ 
+# Receiving functions 
+ 
+ _credit() is the receiving function
+
+ Similar to send, you can add custom logic when receiving an ERC20 token transfer on the destination chain by overriding the _credit function.
+
+
+
 
  */

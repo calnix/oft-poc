@@ -1,0 +1,38 @@
+{
+  "transactions": [
+    {
+      "hash": "0x9bb2e58ccff4fcd604cfd2148ab4599f1c9fc4946b04a604b00e4ef6c9585478",
+      "transactionType": "CALL",
+      "contractName": "TestToken",
+      "contractAddress": "0x0959c593bB41A340Dcd9CA6c090c2F919000B28d",
+      "function": "setMinDstGas(uint16,uint16,uint256)",
+      "arguments": [
+        "10121",
+        "0",
+        "200000"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x2bf003ec9b7e2a5a8663d6b0475370738fa39825",
+        "to": "0x0959c593bb41a340dcd9ca6c090c2f919000b28d",
+        "gas": "0x11275",
+        "value": "0x0",
+        "data": "0xdf2a5b3b000000000000000000000000000000000000000000000000000000000000278900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030d40",
+        "nonce": "0x15",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0x9bb2e58ccff4fcd604cfd2148ab4599f1c9fc4946b04a604b00e4ef6c9585478"
+  ],
+  "returns": {},
+  "timestamp": 1705543386,
+  "chain": 11155111,
+  "multi": false,
+  "commit": "735668bb"
+}
