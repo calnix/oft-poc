@@ -53,3 +53,16 @@ Away: https://goerli.etherscan.io/address/0x0adafb8574b3a59cf3176e1bd278c951c445
 ## Docs
 
 Repo: https://github.com/LayerZero-Labs/solidity-examples/blob/main/contracts/token/oft/v2/OFTV2.sol
+
+## Inheritance and functions
+
+OFTV2 -> BaseOFTV2, ERC20
+
+BaseOFTV2 -> OFTCoreV2, ERC165, IOFTV2 
+- sendFrom
+- sendAndCall
+- estimateSendFee
+- estimateSendAndCallFee
+
+OFTCoreV2 
+- callOnOFTReceived
