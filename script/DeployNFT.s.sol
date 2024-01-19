@@ -46,7 +46,7 @@ contract DeployAway is Script, LZState {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
 
-        TestNFT testNFTAway = new TestNFT("TestNFT", "TT", 100_000, sepoliaEP);
+        TestNFT testNFTAway = new TestNFT("TestNFT", "TT", 100_000, goerliEP);
         vm.stopBroadcast();
     }
 }
@@ -58,8 +58,8 @@ contract DeployAway is Script, LZState {
 
 abstract contract State is LZState {
 
-    address payable public homeChainTokenContract = payable(0x15aE41e237c524c8150134375EdE3cCB725DAbF8);    //sepolia
-    address public awayChainTokenContract = 0x9922E648F1Af6B6f6c9E32c896Bce8C693747901;                     //goerli
+    address payable public homeChainTokenContract = payable(0x21Bb6Bde0bA97c4a595d660DF852C0579F14bAc9);    //sepolia
+    address public awayChainTokenContract = 0x9ba3a554eA4ab7a72b83f5D5Ae5be7B9138De2a3;                     //goerli
 
     uint16 public homeChainId = sepoliaID;      //sepolia
     uint16 public awayChainId = goerliID;       //goerli
@@ -172,8 +172,8 @@ contract MintApprove is State, Script {
 
         TestNFT testNFT = TestNFT(homeChainTokenContract);
 
-        //uint256 tokenID used: 0
-        uint256 tokenID = 0;
+        //uint256 tokenID used: 0, 1, 2
+        uint256 tokenID = 2;
         testNFT.mint(tokenID);
         testNFT.approve(homeChainTokenContract, tokenID); //owner must give approval to homeChainTokenContract; not lzEndpoint
 
@@ -192,13 +192,16 @@ contract SendTokensToAway is State, Script {
         vm.startBroadcast(deployerPrivateKey);
 
         TestNFT testNFT = TestNFT(homeChainTokenContract);
+        
+        // sender sends tokens to himself on the remote chain
+        uint256 tokenId = 2;
+        uint16 dstChainId = awayChainId;
+        address from = 0x2BF003ec9B7e2a5A8663d6B0475370738FA39825;
+        bytes memory toAddress = abi.encodePacked((0x2BF003ec9B7e2a5A8663d6B0475370738FA39825));
 
         // defaultAdapterParams: min/max gas?
         bytes memory defaultAdapterParams = abi.encodePacked(uint16(1), uint256(260000));
-        
-        uint256 _tokenId = 0;
-        bytes32 toAddressBytes32 = bytes32(uint256(uint160(0x2BF003ec9B7e2a5A8663d6B0475370738FA39825)));
-        bytes memory toAddress = bytes.concat(toAddressBytes32);
+
         
         /**
         -- estimateSendFee porams --
@@ -207,10 +210,9 @@ contract SendTokensToAway is State, Script {
         uint _tokenId,
         bool _useZro,
         bytes memory _adapterParams
-
         */
 
-        (uint256 nativeFee, ) = testNFT.estimateSendFee(goerliID, toAddress, _tokenId, false, defaultAdapterParams);
+        (uint256 nativeFee, ) = testNFT.estimateSendFee(dstChainId, toAddress, tokenId, false, defaultAdapterParams);
 
         /**
         * @dev send `_amount` amount of token to (`_dstChainId`, `_toAddress`) from `_from`
@@ -223,15 +225,12 @@ contract SendTokensToAway is State, Script {
         * `_adapterParams` is a flexible bytes array to indicate messaging adapter services
         */ 
 
-        // sender sends tokens to himself on the remote chain
         
-        address from = 0x2BF003ec9B7e2a5A8663d6B0475370738FA39825;
-        uint16 dstChainId = goerliID;
-        
+
         //ICommonOFT.LzCallParams memory _callParams;
         //_callParams = ICommonOFT.LzCallParams({refundAddress: payable(0x2BF003ec9B7e2a5A8663d6B0475370738FA39825), zroPaymentAddress: address(0), adapterParams: defaultAdapterParams});
 
-        testNFT.sendFrom{value: nativeFee}(from, dstChainId, toAddress, _tokenId, payable(0x2BF003ec9B7e2a5A8663d6B0475370738FA39825), address(0), defaultAdapterParams);
+        testNFT.sendFrom{value: nativeFee}(from, dstChainId, toAddress, tokenId, payable(0x2BF003ec9B7e2a5A8663d6B0475370738FA39825), address(0), defaultAdapterParams);
         
         /**
         --- sendFrom params ---
@@ -249,4 +248,71 @@ contract SendTokensToAway is State, Script {
 }
 
 //  forge script script/DeployNFT.s.sol:SendTokensToAway --rpc-url sepolia --broadcast -vvvv
+//  https://testnet.layerzeroscan.com/
+
+//Note: goerli -> sepolia
+contract SendTokensToHome is State, Script {
+
+    function run() public {
+        uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
+        vm.startBroadcast(deployerPrivateKey);
+
+        TestNFT testNFT = TestNFT(awayChainTokenContract);
+        
+        // sender sends tokens to himself on the remote chain
+        uint256 tokenId = 2;
+        uint16 dstChainId = homeChainId;
+        address from = 0x2BF003ec9B7e2a5A8663d6B0475370738FA39825;
+        bytes memory toAddress = abi.encodePacked((0x2BF003ec9B7e2a5A8663d6B0475370738FA39825));
+
+        // defaultAdapterParams: min/max gas?
+        bytes memory defaultAdapterParams = abi.encodePacked(uint16(1), uint256(260000));
+
+        
+        /**
+        -- estimateSendFee porams --
+        uint16 _dstChainId,
+        bytes memory _toAddress,
+        uint _tokenId,
+        bool _useZro,
+        bytes memory _adapterParams
+        */
+
+        (uint256 nativeFee, ) = testNFT.estimateSendFee(dstChainId, toAddress, tokenId, false, defaultAdapterParams);
+
+        /**
+        * @dev send `_amount` amount of token to (`_dstChainId`, `_toAddress`) from `_from`
+        * `_from` the owner of token
+        * `_dstChainId` the destination chain identifier
+        * `_toAddress` can be any size depending on the `dstChainId`.
+        * `_amount` the quantity of tokens in wei
+        * `_refundAddress` the address LayerZero refunds if too much message fee is sent
+        * `_zroPaymentAddress` set to address(0x0) if not paying in ZRO (LayerZero Token)
+        * `_adapterParams` is a flexible bytes array to indicate messaging adapter services
+        */ 
+
+        
+
+        //ICommonOFT.LzCallParams memory _callParams;
+        //_callParams = ICommonOFT.LzCallParams({refundAddress: payable(0x2BF003ec9B7e2a5A8663d6B0475370738FA39825), zroPaymentAddress: address(0), adapterParams: defaultAdapterParams});
+
+        testNFT.sendFrom{value: nativeFee}(from, dstChainId, toAddress, tokenId, payable(0x2BF003ec9B7e2a5A8663d6B0475370738FA39825), address(0), defaultAdapterParams);
+        
+        /**
+        --- sendFrom params ---
+            address _from,
+            uint16 _dstChainId,
+            bytes memory _toAddress,
+            uint _tokenId,
+            address payable _refundAddress,
+            address _zroPaymentAddress,
+            bytes memory _adapterParams
+        */
+
+        vm.stopBroadcast();
+    }
+}
+
+
+//  forge script script/DeployNFT.s.sol:SendTokensToHome --rpc-url goerli --broadcast -vvvv
 //  https://testnet.layerzeroscan.com/

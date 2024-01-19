@@ -1,0 +1,37 @@
+{
+  "transactions": [
+    {
+      "hash": "0xe9a62d936a5c70f1dc0253c79a0cbed1bddf9f68c5b5f02247cce87d80f53d4e",
+      "transactionType": "CALL",
+      "contractName": "TestNFT",
+      "contractAddress": "0x9ba3a554eA4ab7a72b83f5D5Ae5be7B9138De2a3",
+      "function": "setTrustedRemote(uint16,bytes)",
+      "arguments": [
+        "10161",
+        "0x21bb6bde0ba97c4a595d660df852c0579f14bac99ba3a554ea4ab7a72b83f5d5ae5be7b9138de2a3"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x2bf003ec9b7e2a5a8663d6b0475370738fa39825",
+        "to": "0x9ba3a554ea4ab7a72b83f5d5ae5be7b9138de2a3",
+        "gas": "0x21af2",
+        "value": "0x0",
+        "data": "0xeb8d72b700000000000000000000000000000000000000000000000000000000000027b10000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000002821bb6bde0ba97c4a595d660df852c0579f14bac99ba3a554ea4ab7a72b83f5d5ae5be7b9138de2a3000000000000000000000000000000000000000000000000",
+        "nonce": "0x25",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0xe9a62d936a5c70f1dc0253c79a0cbed1bddf9f68c5b5f02247cce87d80f53d4e"
+  ],
+  "returns": {},
+  "timestamp": 1705666434,
+  "chain": 5,
+  "multi": false,
+  "commit": "38cddd9d"
+}

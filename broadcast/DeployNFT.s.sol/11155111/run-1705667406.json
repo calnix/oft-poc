@@ -1,0 +1,60 @@
+{
+  "transactions": [
+    {
+      "hash": "0xe91921ead593b4c59c67898855cd8279bca495bda8d9a635d78aa7aadb679405",
+      "transactionType": "CALL",
+      "contractName": "TestNFT",
+      "contractAddress": "0x21Bb6Bde0bA97c4a595d660DF852C0579F14bAc9",
+      "function": "mint(uint256)",
+      "arguments": [
+        "1"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x2bf003ec9b7e2a5a8663d6b0475370738fa39825",
+        "to": "0x21bb6bde0ba97c4a595d660df852c0579f14bac9",
+        "gas": "0x170f0",
+        "value": "0x0",
+        "data": "0xa0712d680000000000000000000000000000000000000000000000000000000000000001",
+        "nonce": "0x37",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    },
+    {
+      "hash": "0x8571cdacaeca153aaec312771bb4bf1f1defe30df6e0556d6f9720c3be306633",
+      "transactionType": "CALL",
+      "contractName": "TestNFT",
+      "contractAddress": "0x21Bb6Bde0bA97c4a595d660DF852C0579F14bAc9",
+      "function": "approve(address,uint256)",
+      "arguments": [
+        "0x21Bb6Bde0bA97c4a595d660DF852C0579F14bAc9",
+        "1"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x2bf003ec9b7e2a5a8663d6b0475370738fa39825",
+        "to": "0x21bb6bde0ba97c4a595d660df852c0579f14bac9",
+        "gas": "0x1078c",
+        "value": "0x0",
+        "data": "0x095ea7b300000000000000000000000021bb6bde0ba97c4a595d660df852c0579f14bac90000000000000000000000000000000000000000000000000000000000000001",
+        "nonce": "0x38",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0xe91921ead593b4c59c67898855cd8279bca495bda8d9a635d78aa7aadb679405",
+    "0x8571cdacaeca153aaec312771bb4bf1f1defe30df6e0556d6f9720c3be306633"
+  ],
+  "returns": {},
+  "timestamp": 1705667406,
+  "chain": 11155111,
+  "multi": false,
+  "commit": "38cddd9d"
+}
