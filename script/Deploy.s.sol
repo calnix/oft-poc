@@ -3,8 +3,8 @@ pragma solidity ^0.8.13;
 
 import {Script, console2} from "forge-std/Script.sol";
 
-import "../src/LZv1Guide/ERC20/HomeChain.sol"; //TestToken
-import "../src/LZv1Guide/ERC20/OtherChain.sol"; //TestTokenElsewhere
+import "../src/OFTV2-EPV1/ERC20/HomeChain.sol"; //TestToken
+import "../src/OFTV2-EPV1/ERC20/OtherChain.sol"; //TestTokenElsewhere
 
 abstract contract LZState {
     uint16 public sepoliaID = 10161;

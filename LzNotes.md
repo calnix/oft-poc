@@ -1,6 +1,6 @@
 # Deploying new ERC20 as OFT
 
-- When calling `sendFrom` adapterParams value must be > minDstGas
+- When calling `sendFrom` adapterParams value must be > `minDstGas`
 - `sendFrom` must have specified msg.value - obtained from `estimateSendFees`
 
 ## On adapterParams, minDstGas, estimateSendFees
@@ -34,35 +34,30 @@ https://layerzero.gitbook.io/docs/evm-guides/code-examples/oft-overview/v1-oft-v
 - docs.layerzero.network are strictly for Endpoint V2
 - https://layerzero.gitbook.io/docs/ for Endpoint v1
 
-## General steps
-
-1. Deploy your OFT contract, and specify the shared decimals (ie. where your ERC-20 decimals > shared-decimals).
-2. Deploy your OFT contract on the other connected chain(s) and specify the shared decimals in relation to your other OFT.
-3. Set your contracts to trust one another by calling on both contracts setTrustedRemoteAddress. Pair them to one another's chain and address.
-4. Next, we're going to set our minimum Gas Limit for each chain. (Recommended 200k for all EVM chains except Arbitrum, 2M for Arbitrum). Call setMinDstGas with the chainId of the other chain, the packet type ("0" meaning send, "1" meaning send and call), and the gas limit amount.
-
-(Make sure that your AdapterParams gas limit > setMinDstGas)
-- OFTV2 on Endpoint V1
-- https://docs.google.com/document/d/1Qsu5idleVxjbGFfT_kma7-qH42d4HH3rzfGJmJefyvk/edit?pli=1
-
-# Deployment
-
-Home: https://sepolia.etherscan.io/address/0x0959c593bB41A340Dcd9CA6c090c2F919000B28d#readContract
-Away: https://goerli.etherscan.io/address/0x0adafb8574b3a59cf3176e1bd278c951c445d94d/advanced#readContract
-
 ## Docs
 
 Repo: https://github.com/LayerZero-Labs/solidity-examples/blob/main/contracts/token/oft/v2/OFTV2.sol
 
-## Inheritance and functions
+## Inheritance and Execution flow
 
-OFTV2 -> BaseOFTV2, ERC20
+### OFTV2 is BaseOFTV2, ERC20
 
-BaseOFTV2 -> OFTCoreV2, ERC165, IOFTV2 
+### BaseOFTV2 is OFTCoreV2, ERC165, IOFTV2
 - sendFrom
 - sendAndCall
 - estimateSendFee
 - estimateSendAndCallFee
 
-OFTCoreV2 
+### OFTCoreV2 
 - callOnOFTReceived
+
+### sendAndCall -> _sendAndCall -> _lzSend (LzApp.sol)
+
+- _sendAndCall is defined on OFTCoreV2.sol
+- _lzSend is defined on LzApp.sol
+
+### _nonblockingLzReceive -> _sendAck / _sendAndCallAck
+
+## To follow-up on
+
+- NativeOFT can use the token as gas payment? How so?

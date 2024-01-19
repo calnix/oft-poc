@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import {Script, console2} from "forge-std/Script.sol";
 
-import {TestNFT} from "../src/LZv1Guide/ERC721/TestNFT.sol"; 
+import {TestNFT} from "../src/OFTV2-EPV1/ERC721/TestNFT.sol"; 
 
 abstract contract LZState {
     uint16 public sepoliaID = 10161;
