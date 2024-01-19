@@ -3,8 +3,8 @@ pragma solidity ^0.8.13;
 
 import {Script, console2} from "forge-std/Script.sol";
 
-import "../src/LZv1Guide/HomeChain.sol"; //TestToken
-import "../src/LZv1Guide/OtherChain.sol"; //TestTokenElsewhere
+import "../src/LZv1Guide/ERC20/HomeChain.sol"; //TestToken
+import "../src/LZv1Guide/ERC20/OtherChain.sol"; //TestTokenElsewhere
 
 abstract contract LZState {
     uint16 public sepoliaID = 10161;
@@ -36,7 +36,8 @@ contract DeployHome is Script, LZState {
 
 /**
     forge script script/Deploy.s.sol:DeployHome --rpc-url sepolia --broadcast --verify -vvvv --etherscan-api-key sepolia
-
+    
+    backup RPC:
     forge script script/Deploy.s.sol:DeployHome --rpc-url "https://rpc-mumbai.maticvigil.com" --broadcast --verify -vvvv --legacy --etherscan-api-key polygon
 */
 
@@ -160,7 +161,7 @@ contract SetGasLimitsAway is State, Script {
 // forge script script/Deploy.s.sol:SetGasLimitsAway --rpc-url goerli --broadcast -vvvv
 
 
-// ------------------------------------------- Sem sum tokens  -------------------------
+// ------------------------------------------- Send sum tokens  -------------------------
 
 import "lib/solidity-examples/contracts/token/oft/v2/interfaces/ICommonOFT.sol";
 

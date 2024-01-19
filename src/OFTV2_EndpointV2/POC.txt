@@ -88,7 +88,7 @@ On shared decimals
 # Sending Logic
  
  send function on OFTCore.sol
- when send() is called, _debit() is invovked, triggering the ERC20 token on the source chain to be burned
+ when send() is called, _debit() is invoked, triggering the ERC20 token on the source chain to be burned
  can override _debit() with any additional logic you want to execute, before the message is sent out via LZ, 
   for example, taking custom fees.
  

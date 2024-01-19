@@ -1,0 +1,38 @@
+{
+  "transactions": [
+    {
+      "hash": "0x899f0ad9c162ba7eb9048f3de612103efcc9358184bc8e7d87fbf55a6493167f",
+      "transactionType": "CALL",
+      "contractName": "TestNFT",
+      "contractAddress": "0x4a28022eD61910B4Dc3dbf0522A0847d5Dcc3a58",
+      "function": "setMinDstGas(uint16,uint16,uint256)",
+      "arguments": [
+        "10121",
+        "0",
+        "200000"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x2bf003ec9b7e2a5a8663d6b0475370738fa39825",
+        "to": "0x4a28022ed61910b4dc3dbf0522a0847d5dcc3a58",
+        "gas": "0x11275",
+        "value": "0x0",
+        "data": "0xdf2a5b3b000000000000000000000000000000000000000000000000000000000000278900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030d40",
+        "nonce": "0x1e",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0x899f0ad9c162ba7eb9048f3de612103efcc9358184bc8e7d87fbf55a6493167f"
+  ],
+  "returns": {},
+  "timestamp": 1705643079,
+  "chain": 11155111,
+  "multi": false,
+  "commit": "57fff76b"
+}

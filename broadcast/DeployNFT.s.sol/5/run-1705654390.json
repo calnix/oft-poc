@@ -1,0 +1,63 @@
+{
+  "transactions": [
+    {
+      "hash": "0xd10c829f51b5a82881d9da24c329f5440515538adbe6630ef4918ebd816e5d21",
+      "transactionType": "CALL",
+      "contractName": "TestNFT",
+      "contractAddress": "0x9922E648F1Af6B6f6c9E32c896Bce8C693747901",
+      "function": "setMinDstGas(uint16,uint16,uint256)",
+      "arguments": [
+        "10161",
+        "0",
+        "260000"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x2bf003ec9b7e2a5a8663d6b0475370738fa39825",
+        "to": "0x9922e648f1af6b6f6c9e32c896bce8c693747901",
+        "gas": "0x11275",
+        "value": "0x0",
+        "data": "0xdf2a5b3b00000000000000000000000000000000000000000000000000000000000027b10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003f7a0",
+        "nonce": "0x20",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    },
+    {
+      "hash": "0xf9550c8d0466875f8d8ead12a84d925d83e611f82997272b0d88c3998d3107ed",
+      "transactionType": "CALL",
+      "contractName": "TestNFT",
+      "contractAddress": "0x9922E648F1Af6B6f6c9E32c896Bce8C693747901",
+      "function": "setMinDstGas(uint16,uint16,uint256)",
+      "arguments": [
+        "10161",
+        "1",
+        "260000"
+      ],
+      "transaction": {
+        "type": "0x02",
+        "from": "0x2bf003ec9b7e2a5a8663d6b0475370738fa39825",
+        "to": "0x9922e648f1af6b6f6c9e32c896bce8c693747901",
+        "gas": "0x10346",
+        "value": "0x0",
+        "data": "0xdf2a5b3b00000000000000000000000000000000000000000000000000000000000027b10000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000003f7a0",
+        "nonce": "0x21",
+        "accessList": []
+      },
+      "additionalContracts": [],
+      "isFixedGasLimit": false
+    }
+  ],
+  "receipts": [],
+  "libraries": [],
+  "pending": [
+    "0xd10c829f51b5a82881d9da24c329f5440515538adbe6630ef4918ebd816e5d21",
+    "0xf9550c8d0466875f8d8ead12a84d925d83e611f82997272b0d88c3998d3107ed"
+  ],
+  "returns": {},
+  "timestamp": 1705654390,
+  "chain": 5,
+  "multi": false,
+  "commit": "57fff76b"
+}
