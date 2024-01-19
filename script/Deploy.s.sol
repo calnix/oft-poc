@@ -218,7 +218,7 @@ contract SendTokensToAway is State, Script {
 
 //  forge script script/Deploy.s.sol:SendTokensToAway --rpc-url sepolia --broadcast -vvvv
 
-// - mint + allowance on endpoint.
+// mint + allowance on endpoint.
 // msg.sender:  0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38  -> foundry bug?
 
 contract SendTokensToAwayAndCall is State, Script {
