@@ -5,8 +5,8 @@ libs = ["lib"]
 
 [rpc_endpoints]
 mumbai = "https://polygon-mumbai.infura.io/v3/87b04c4f63d44167aefe897951736197"
-goerli = "https://goerli.infura.io/v3/e71bd86988c54618aa4b92f03406fb32"
-sepolia = "https://sepolia.infura.io/v3/e71bd86988c54618aa4b92f03406fb32"
+goerli = "https://goerli.infura.io/v3/${GOERLI_RPC_INFURA}"
+sepolia = "https://sepolia.infura.io/v3/${SEPOLIA_RPC_INFURA}"
 
 [etherscan]
 goerli = { key = "${ETHERSCAN_API_KEY}" }

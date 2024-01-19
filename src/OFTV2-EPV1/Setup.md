@@ -31,3 +31,9 @@
 - Native OFTv2 Contract <> Native OFTv2 Contract: when you want to pay gas fees in the issued token.
 - OFTv2 <> OFTv2: when you have not yet deployed a token.
 - ProxyOFTv2 <> OFTv2: when token is already deployed.
+
+## Testnet Faucts
+
+- Alchemy, Infura, Quicknode
+- If usual faucets are down, blocked or on cooldown: https://sepolia-faucet.pk910.de/
+- Run on desktop and max the runners, give or take a few hours.
