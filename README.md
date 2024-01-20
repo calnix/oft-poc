@@ -37,21 +37,12 @@ This allows us to maintain a fixed supply of tokens, spread across multiple chai
 
 ### Batch #1:
 
-Home: https://sepolia.etherscan.io/address/0x4a28022ed61910b4dc3dbf0522a0847d5dcc3a58
-Away: https://goerli.etherscan.io/address/0x9922e648f1af6b6f6c9e32c896bce8c693747901
 
-1st Txn, TokenId 0: https://testnet.layerzeroscan.com/tx/0x6d121167a86cd5a9a5d53e46b5e5c5a9a14a7feb3267ef94ff7dc897f6170c13
-2nd Txn, TokenId 1: https://testnet.layerzeroscan.com/tx/0x8adfe769e6f316e46da20c05f4141c65cd8247e2a6899f4a4c8c9543983d424a
+- Home: https://sepolia.etherscan.io/address/0x21bb6bde0ba97c4a595d660df852c0579f14bac9
+- Away: https://goerli.etherscan.io/address/0x9ba3a554ea4ab7a72b83f5d5ae5be7b9138de2a3
 
-Gas limits set to 200K. Transaction on destination reverts mid-way.
-All sending on the source chain is fine. Issue lies with destination.
-
-### Batch #2:
-
-Home: https://sepolia.etherscan.io/address/0x15ae41e237c524c8150134375ede3ccb725dabf8
-Away: https://goerli.etherscan.io/address/0x9922e648f1af6b6f6c9e32c896bce8c693747901
-
-1st Txn, TokenId 0: https://testnet.layerzeroscan.com/tx/0x7b0c345c8f52dcfaa5fa3a6a8aa47b91667db90e71aa48d7c2b21118054d4b0c
+- 1st Txn, TokenId 2: https://testnet.layerzeroscan.com/tx/0x8bf2d488d477e3b94703f0111dff7f639e944d637f8c1d17cf7cb1fc79210b94                (Sepolia → Goerli)
+- 2nd Txn, TokenId 2: https://testnet.layerzeroscan.com/address/0x04704588b0949986b5da983e3e8b032f7a12357f75b5e2771af10d5584db4ed9           (Goerli → Sepolia)
 
 Using OFTV1 standard on LZ Endpoints V1.
 OFTV2 for NFTs are still being worked on.
@@ -61,7 +52,6 @@ All sending on the source chain is fine. Issue lies with destination.
 
 ## Next steps
 
-- Resolve NFT POC hiccup.
 - Testing cross-chain call linkage/chaining. This can be thought of in the case of staking in source, action taken in destination.
 
 ## Other notes
@@ -69,3 +59,32 @@ All sending on the source chain is fine. Issue lies with destination.
 - The OFTV2_EndpointV2 dir is following the latest quickstart guide, as illustrated on the website (docs.layerzero.network).
 - Advised by Matt to follow internal doc using OFTV2 on Endpoints V1.
 - Ignore OFTV2_EndpointV2 for now - may be useful in the future for a more updated POC - particularly with EVM <> Non-EVM communication.
+
+## On Execution flow
+
+srcChain::MyContract -> srcChain::LzEndpoint =====> dstChainL::LzEndPoint ---> dstChain::MyContract
+
+dstChain::MyContract must implement ILayerZeroReceiver interface and override the lzReceive() function.
+
+- inherit LzApp to implement ILayerZeroReceiver interface [?]
+- ensure lzReceive() is overridden to handle receiving messages
+--> lzReceive() handles the incoming x-chain msg; used by endpoints.
+--> Dapp will be relayed msg from endpoint; so should overwrite the default logic with what should be done with incoming payload
+
+Note: If your contract derives from LzApp, do not call lzEndpoint.send directly, use _lzSend.
+
+There are two ways to implement lzReceive within a specific LzApp implementation.
+
+### What is the difference btw _blockingLzReceive and _nonBlockingLzReceive?
+
+- _blockingLzReceive ensures that messages are processed in the order they were sent from a source User Application (srcUA) to all destination User Applications (dstUA) on the same chain.
+-  _nonBlockingLzReceive function is used in user applications to handle incoming messages in a way that avoids blocking the message queue. It does this by catching errors or exceptions locally, allowing for future retries without disrupting the flow of messages at the destination LayerZero Endpoint
+
+blocking is essentially FIFO. nonblocking might have random order.
+
+## adapterParams
+
+A bytes array that contains custom instructions for how a LZ Relayer should transmit the transaction. Custom instructions include:
+
+1. The upper limit on how much destination gas to spend
+2. Instructing the relayer to airdrop native currency to a specified wallet address
